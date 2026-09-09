@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background: #060B14;
+  color: #EDF1F7;
+}
+
+::placeholder { color: #5C6B85; }
+
+.wc-clickable { cursor: pointer; transition: border-color 0.15s, transform 0.15s; }
+.wc-clickable:hover { border-color: #2F6FED; transform: translateY(-1px); }
+
+/* Marquees are now requestAnimationFrame-driven (components/marquee.tsx) so they can be
+   dragged bidirectionally; prefers-reduced-motion is handled inside that component (it
+   disables the autoplay increment entirely rather than just slowing the CSS animation). */
+
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+  outline: 2px solid #48D8E8;
+  outline-offset: 2px;
+}

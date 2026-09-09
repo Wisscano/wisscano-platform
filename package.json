@@ -1,0 +1,49 @@
+{
+  "name": "wisscano-platform",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "tsx db/migrate.ts",
+    "db:seed": "tsx db/seed.ts",
+    "db:studio": "drizzle-kit studio"
+  },
+  "dependencies": {
+    "next": "^16.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "drizzle-orm": "^0.36.0",
+    "@neondatabase/serverless": "^0.10.0",
+    "zod": "^3.23.0",
+    "react-hook-form": "^7.53.0",
+    "@hookform/resolvers": "^3.9.0",
+    "@vercel/blob": "^0.27.0",
+    "bcryptjs": "^2.4.3",
+    "jose": "^5.9.0",
+    "lucide-react": "^0.460.0",
+    "motion": "^11.11.0",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^2.5.0",
+    "@react-pdf/renderer": "^4.0.0",
+    "class-variance-authority": "^0.7.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@types/bcryptjs": "^2.4.6",
+    "tailwindcss": "^3.4.0",
+    "postcss": "^8.4.47",
+    "autoprefixer": "^10.4.20",
+    "drizzle-kit": "^0.28.0",
+    "tsx": "^4.19.0",
+    "dotenv": "^16.4.0",
+    "eslint": "^9.0.0",
+    "eslint-config-next": "^16.0.0"
+  }
+}
