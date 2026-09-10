@@ -20,7 +20,10 @@ export async function getDashboardStats() {
     ]),
   ]);
 
-  const [[{ count: brandCount }], [{ count: categoryCount }], [{ count: serviceCount }]] = contentCounts;
+const [brandRows, categoryRows, serviceRows] = contentCounts;
+const brandCount = brandRows[0]?.count ?? 0;
+const categoryCount = categoryRows[0]?.count ?? 0;
+const serviceCount = serviceRows[0]?.count ?? 0;
 
   return {
     statusCounts, // e.g. [{status:'new', count:4}, {status:'sourcing', count:2}, ...]

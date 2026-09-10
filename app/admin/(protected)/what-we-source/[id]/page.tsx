@@ -10,5 +10,5 @@ export default async function EditCategoryPage({ params }: { params: Promise<{ i
   const { id } = await params;
   const [category] = await db.select().from(procurementCategories).where(eq(procurementCategories.id, id)).limit(1);
   if (!category) notFound();
-  return <div><h1 className="font-display font-bold text-2xl">Edit category</h1><div className="mt-6"><CategoryForm initial={category} /></div></div>;
+  return <div><h1 className="font-display font-bold text-2xl">Edit category</h1><div className="mt-6"><CategoryForm initial={{ ...category, semanticTags: category.semanticTags ?? undefined }} /></div></div>;
 }

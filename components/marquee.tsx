@@ -76,13 +76,20 @@ export function Marquee<T>({
     return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
   }, [direction, speedPxPerSec, active]);
 
+
   const onPointerDown = useCallback((e: React.PointerEvent) => {
-    draggingRef.current = true;
-    dragStartXRef.current = e.clientX;
-    dragStartOffsetRef.current = offsetRef.current;
-    lastInteractionRef.current = performance.now();
-    (e.currentTarget as HTMLElement).setPointerCapture?.(e.pointerId);
-  }, []);
+  const target = e.target as HTMLElement;
+  if (target.closest("button, a")) {
+    // Don't hijack pointer capture when the interaction starts on a button
+    // or link — let their native click/navigation behavior fire normally.
+    return;
+  }
+  draggingRef.current = true;
+  dragStartXRef.current = e.clientX;
+  dragStartOffsetRef.current = offsetRef.current;
+  lastInteractionRef.current = performance.now();
+  (e.currentTarget as HTMLElement).setPointerCapture?.(e.pointerId);
+}, []);
 
   const onPointerMove = useCallback((e: React.PointerEvent) => {
     if (!draggingRef.current) return;

@@ -63,30 +63,40 @@ export function SiteSettingsForm({ initial, mediaUrls }: { initial: any; mediaUr
 
   const socialEntries = Object.entries(values.socialLinks ?? {});
   function updateSocial(platform: string, url: string) { set("socialLinks", { ...values.socialLinks, [platform]: url }); }
-  function renameSocialPlatform(oldName: string, newName: string) {
-    const next = { ...values.socialLinks };
-    const url = next[oldName]; delete next[oldName]; next[newName] = url;
-    set("socialLinks", next);
-  }
-  function removeSocial(platform: string) {
-    const next = { ...values.socialLinks }; delete next[platform];
-    set("socialLinks", next);
-  }
+function renameSocialPlatform(oldName: string, newName: string) {
+  const next: Record<string, string> = { ...(values.socialLinks ?? {}) };
+  const url = next[oldName] ?? "";
+  delete next[oldName];
+  next[newName] = url;
+  set("socialLinks", next);
+}
+function removeSocial(platform: string) {
+  const next: Record<string, string> = { ...(values.socialLinks ?? {}) };
+  delete next[platform];
+  set("socialLinks", next);
+}
   function addSocial() { set("socialLinks", { ...values.socialLinks, "New platform": "" }); }
 
   const navItems: { label: string; url: string; order: number }[] = values.navItems ?? [];
-  function updateNav(i: number, patch: Partial<{ label: string; url: string }>) {
-    const next = [...navItems]; next[i] = { ...next[i], ...patch }; set("navItems", next);
-  }
+function updateNav(i: number, patch: Partial<{ label: string; url: string }>) {
+  const next = [...navItems];
+  const current = next[i];
+  if (!current) return;
+  next[i] = { ...current, ...patch };
+  set("navItems", next);
+}
   function addNav() { set("navItems", [...navItems, { label: "New link", url: "/", order: navItems.length }]); }
   function removeNav(i: number) { set("navItems", navItems.filter((_, idx) => idx !== i)); }
-  function moveNav(i: number, dir: number) {
-    const next = [...navItems].sort((a, b) => a.order - b.order);
-    const j = i + dir;
-    if (j < 0 || j >= next.length) return;
-    [next[i].order, next[j].order] = [next[j].order, next[i].order];
-    set("navItems", next);
-  }
+function moveNav(i: number, dir: number) {
+  const next = [...navItems].sort((a, b) => a.order - b.order);
+  const j = i + dir;
+  if (j < 0 || j >= next.length) return;
+  const a = next[i];
+  const b = next[j];
+  if (!a || !b) return;
+  [a.order, b.order] = [b.order, a.order];
+  set("navItems", next);
+}
 
   return (
     <div className="max-w-[620px]">
@@ -96,7 +106,7 @@ export function SiteSettingsForm({ initial, mediaUrls }: { initial: any; mediaUr
       </div>
 
       <h2 className="font-mono text-xs text-wc-textMute mb-3">IDENTITY</h2>
-      {[["companyName", "Company name"], ["tagline", "Tagline"], ["acronymExpansion", "WISSCANO acronym expansion"]].map(([key, label]) => (
+{([["companyName", "Company name"], ["tagline", "Tagline"], ["acronymExpansion", "WISSCANO acronym expansion"]] as const).map(([key, label]) => (
         <div key={key} className="mb-4">
           <label className="font-mono text-[11px] text-wc-textMute">{label}</label>
           <Input className="mt-1.5" value={values[key] ?? ""} onChange={(e) => set(key, e.target.value)} />
@@ -122,7 +132,7 @@ export function SiteSettingsForm({ initial, mediaUrls }: { initial: any; mediaUr
 
       <h2 className="font-mono text-xs text-wc-textMute mt-6 mb-3">CONTACT</h2>
       <div className="grid grid-cols-2 gap-4">
-        {[["contactEmail", "Contact email"], ["contactPhone", "Contact phone"], ["whatsappNumber", "WhatsApp number"], ["defaultCountryCode", "Default country (ISO)"], ["defaultCurrency", "Default currency"]].map(([key, label]) => (
+{([["contactEmail", "Contact email"], ["contactPhone", "Contact phone"], ["whatsappNumber", "WhatsApp number"], ["defaultCountryCode", "Default country (ISO)"], ["defaultCurrency", "Default currency"]] as const).map(([key, label]) => (
           <div key={key} className="mb-4">
             <label className="font-mono text-[11px] text-wc-textMute">{label}</label>
             <Input className="mt-1.5" value={values[key] ?? ""} onChange={(e) => set(key, e.target.value)} />

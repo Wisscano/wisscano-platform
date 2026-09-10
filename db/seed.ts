@@ -13,8 +13,8 @@ import {
   siteSettings, countries, markets, adminUsers, brands, procurementCategories,
   services, showcaseItems, carouselConfigs, documentTypes, companyProfile, highlights,
 } from "./schema";
-import { hashPassword } from "@/lib/auth";
-import { slugify } from "@/lib/utils";
+import { hashPassword } from "../lib/auth";
+import { slugify } from "../lib/utils";
 
 async function main() {
   console.log("Seeding Wisscano database...");

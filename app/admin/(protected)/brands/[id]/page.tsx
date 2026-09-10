@@ -14,7 +14,9 @@ export default async function EditBrandPage({ params }: { params: Promise<{ id: 
   return (
     <div>
       <h1 className="font-display font-bold text-2xl">Edit brand</h1>
-      <div className="mt-6"><BrandForm initial={brand} /></div>
+      <div className="mt-6">
+  <BrandForm initial={{ ...brand, semanticTags: brand.semanticTags ?? undefined }} />
+</div>
     </div>
   );
 }

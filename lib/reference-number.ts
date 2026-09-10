@@ -12,12 +12,12 @@ export async function generateProcurementReference(): Promise<string> {
   const year = new Date().getFullYear();
   const prefix = `WIS-RFQ-${year}-`;
 
-  const [{ count }] = await db
-    .select({ count: sql<number>`count(*)::int` })
-    .from(procurementRequests)
-    .where(sql`${procurementRequests.referenceNumber} like ${prefix + "%"}`);
+const rows = await db
+  .select({ count: sql<number>`count(*)::int` })
+  .from(procurementRequests)
+  .where(sql`${procurementRequests.referenceNumber} like ${prefix + "%"}`);
 
-  const next = (count ?? 0) + 1;
+const next = (rows[0]?.count ?? 0) + 1;
   return `${prefix}${String(next).padStart(4, "0")}`;
 }
 

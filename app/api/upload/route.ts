@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
 
   try {
     const record = await uploadFile(file);
-    return NextResponse.json({ ok: true, mediaId: record.id, filename: record.filename, url: record.url }, { status: 201 });
+return NextResponse.json({ ok: true, mediaId: record.mediaId, filename: record.filename, url: record.url }, { status: 201 });
   } catch (err) {
     if (err instanceof UnsupportedFileError) return NextResponse.json({ ok: false, error: err.message }, { status: 415 });
     if (err instanceof FileTooLargeError) return NextResponse.json({ ok: false, error: err.message }, { status: 413 });

@@ -1,10 +1,17 @@
-import { AdminNav } from "@/components/admin/admin-nav";
+import "./globals.css";
+import { TechField } from "@/components/tech-field";
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <div className="min-h-screen flex bg-wc-bg">
-      <AdminNav />
-      <main className="flex-1 p-8 max-w-[1200px]">{children}</main>
-    </div>
+    <html lang="en">
+      <body className="bg-wc-bg">
+        <TechField />
+        {children}
+      </body>
+    </html>
   );
 }
